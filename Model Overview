@@ -87,3 +87,171 @@ For example:
 
 ```matlab
 pc = [0.75 0.25 0.50];
+
+means:
+	•	MC blocks are mostly congruent
+	•	MI blocks are mostly incongruent
+	•	NP blocks are balanced
+
+### `eta`
+
+eta controls explicit motor noise in the response channel.
+
+It softens the mapping from internal response state to observed keypress outcome.
+	•	small eta -> more deterministic responding
+	•	larger eta -> noisier / less deterministic responding
+
+This parameter was introduced because it behaved more reliably than Stroop-style response noise settings in the current Flanker implementation.
+
+## `Hidden Factors`
+
+The model has two levels: a fast within-trial level and a slow contextual level.
+
+### Fast level hidden factors
+
+The fast level represents trial-wise hidden states.
+
+1. TargetDir
+Direction of the central target.
+
+States:
+	•	left
+	•	right
+
+2. Congruency
+Whether flankers match the target or conflict with it.
+
+States:
+	•	congruent
+	•	incongruent
+
+3. TaskSequence
+Stage of the trial.
+
+States:
+	•	cue
+	•	null / intermediate
+	•	response
+
+4. Instruction
+Task instruction mode.
+
+States:
+	•	attend target
+	•	attend flanker
+
+In most intended task settings, the relevant instruction is the target-focused one, but this factor is kept to preserve the hierarchical Stroop-like structure.
+
+5. Response
+Internal response mode / selected response tendency.
+
+States:
+	•	report target
+	•	report flanker
+
+6. Correct?
+Whether the chosen response is correct relative to the target.
+
+States:
+	•	correct
+	•	incorrect
+
+⸻
+
+### Slow level hidden factors
+
+The slow level represents contextual structure across blocks.
+
+1. Narrative
+A simple slow-level phase factor controlling the slower temporal progression.
+
+2. Context
+Block type.
+
+States:
+	•	MC
+	•	MI
+	•	NP
+
+3. Instruction
+Slow-level instruction representation.
+
+4. Response
+Slow-level response mode representation.
+
+The slow level sends predictions to the fast level through hierarchical links, especially for:
+	•	context-sensitive congruency expectations
+	•	instruction
+	•	response mode
+	•	correctness expectations
+
+⸻
+
+## Outcomes / observations
+
+### Fast level outcome modalities
+
+The fast level includes four main outcome channels.
+
+1. Flanker stimulus
+Observed flanker direction.
+
+Outcomes:
+	•	left
+	•	right
+	•	null
+
+2. Target stimulus
+Observed target direction.
+
+Outcomes:
+	•	left
+	•	right
+	•	null
+
+3. Cue
+Observed instruction cue.
+
+Outcomes:
+	•	attend target
+	•	attend flanker
+	•	none
+
+4. Keypress
+Observed response output.
+
+Outcomes:
+	•	left
+	•	right
+	•	null
+
+⸻
+
+### Slow level outcome modalities
+
+The slow level predicts or constrains several fast-level quantities, including:
+	•	task sequence
+	•	instruction
+	•	response mode
+	•	correctness
+	•	congruency statistics
+
+This is how the model implements contextual control in a hierarchical way.
+
+⸻
+
+Behavioral interpretation
+
+The main behavioral phenomena the model is intended to capture are:
+	•	better performance on congruent than incongruent trials
+	•	stronger difficulty on incongruent trials in some contexts than others
+	•	context-dependent modulation of conflict effects
+	•	individual differences in the balance between control-related preferences and biased / interference-prone response tendencies
+
+A key point inherited from the Stroop literature is that the most recoverable quantity may not be c or e alone, but rather their relative balance. 
+This occurs because there is a high degree of covariance between the two parameters under the posterior estimates, meaning that the marginal density for each parameter neglects an important degree of freedom. 
+The expected differences between the two account for this covariance. The implication is that, in explaining data under the hypothesis that differences in cognitive effort underwrite behavioural differences, 
+it is the motivation to deploy cognitive effort relative to the effort demanded by the task (for that individual) that matters, and not the absolute value of the motivation or demand. 
+In principle, this means a single parameter related to effort may be sufficient to characterise performance on the Stroop task. 
+In summary, this parameter recovery exercise demonstrates that it is possible to use active inference to ‘phenotype’ (and infer the prior beliefs of) participants of a Stroop task. So, I am trying to test this hypothesis with a very 
+conceptually similar task and additionally with empirical data.
