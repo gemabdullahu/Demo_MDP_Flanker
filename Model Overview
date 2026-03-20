@@ -1,0 +1,89 @@
+# Model Overview
+
+## What this model is
+
+This repository contains a hierarchical active inference model for a **block-based Flanker task**, implemented in MATLAB and adapted conceptually from SPM's `DEMO_MDP_Stroop`.
+
+The model is designed to simulate behavior in a task where a participant must respond to the direction of a **central target** while ignoring potentially conflicting **flankers**. The task is organized into blocks with different congruency statistics:
+
+- **MC**: mostly congruent
+- **MI**: mostly incongruent
+- **NP**: non-predictive / balanced
+
+The model is hierarchical (deep) in the same general sense as `DEMO_MDP_Stroop`:
+
+- a **slow level** represents block-level contextual structure
+- a **fast level** represents within-trial perception, response selection, and outcome generation
+
+This allows the model to represent both:
+- trial-wise conflict between target and flankers
+- slower contextual expectations about how likely congruent vs incongruent trials are in a given block
+
+---
+
+## Relation to `DEMO_MDP_Stroop`
+
+This model is directly inspired by `DEMO_MDP_Stroop` in SPM and preserves its main conceptual logic:
+
+- hierarchical active inference architecture
+- latent parameters governing motivational / control-related behavior
+- simulation of behavior under different parameter settings
+- summary-based recovery and fitting workflows
+
+However, the Flanker version differs from the Stroop version in several important ways.
+
+### Shared logic with Stroop
+Like the Stroop model, this Flanker model assumes that behavior depends on the balance between:
+- a prior tendency or bias in policy selection
+- a preference for correct outcomes
+
+In both cases, the key individual-difference quantity is often the **relative balance** between these influences rather than their absolute values in isolation.
+
+### Main differences from Stroop
+The Flanker task differs from Stroop in task structure and therefore in model structure:
+
+- conflict is between **target direction** and **flanker direction**, rather than between color and word
+- contextual structure is represented through **block-wise congruency statistics**
+- the response channel was implemented differently from `DEMO_MDP_Stroop`, and self-generated response outcomes were disabled in the current working version
+- explicit motor noise (`eta`) was used to soften the response mapping, because this proved more effective than relying on Stroop-style response-noise settings alone
+
+So, this model should be understood as a **Stroop-inspired Flanker adaptation**, not as a one-to-one translation.
+
+---
+
+## Parameters
+
+The main free parameters currently emphasized in simulation, recovery, and fitting are:
+
+### `c`
+`c` controls the strength of preference for correct over incorrect outcomes.
+
+Higher `c` means the model places stronger value on correct responding.  
+Lower `c` weakens the preference for correct outcomes.
+
+In generative simulations, increasing `c` tends to:
+- improve incongruent-trial performance
+- reduce congruency cost
+
+### `e`
+`e` controls prior bias over policies / response tendencies.
+
+In the present implementation, `e` can be interpreted as a tendency that biases behavior in a less controlled / more interference-prone direction relative to the correctness preference parameter.
+
+In generative simulations, increasing `e` tends to:
+- reduce incongruent-trial performance
+- increase congruency cost
+
+### `pc`
+`pc` is a 3-element vector specifying the expected probability of congruent trials in each context.
+
+The default ordering is:
+
+- `pc(1)` = MC
+- `pc(2)` = MI
+- `pc(3)` = NP
+
+For example:
+
+```matlab
+pc = [0.75 0.25 0.50];
