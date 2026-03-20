@@ -1,0 +1,100 @@
+# Task Design
+
+## Overview
+
+The behavioral task modeled in this repository is a **block-based Flanker task**.  
+On each trial, the participant must respond to the **direction of a central target** while ignoring surrounding **flankers**.
+
+The task is designed to manipulate conflict at two levels:
+
+- **within-trial conflict**: whether flankers are congruent or incongruent with the target
+- **between-block context**: whether a block is mostly congruent, mostly incongruent, or balanced
+
+This design makes it possible to study both:
+- trial-wise interference effects
+- slower contextual adaptation to block structure
+
+---
+
+## Trial structure
+
+Each trial contains:
+
+- a target stimulus with a direction:
+  - left
+  - right
+
+- flanker stimuli with a direction:
+  - left
+  - right
+
+The participant is intended to respond according to the **central target**.
+
+### Congruent trials
+On congruent trials, the flankers point in the same direction as the target.
+
+Examples:
+- `<<<<<`
+- `>>>>>`
+
+These are lower-conflict trials.
+
+### Incongruent trials
+On incongruent trials, the flankers point in the opposite direction from the target.
+
+Examples:
+- `<<><<`
+- `>><>>`
+
+These are higher-conflict trials.
+
+---
+
+## Block structure
+
+The task is organized into three block types that differ in the proportion of congruent and incongruent trials.
+
+### MC — Mostly Congruent
+This block has more congruent than incongruent trials.
+
+Intended congruency probability:
+- approximately **75% congruent**
+- approximately **25% incongruent**
+
+In the code and analyses this corresponds to:
+
+- block label: `MC`
+- ratio in raw behavioral data: `75/25`
+
+### MI — Mostly Incongruent
+This block has more incongruent than congruent trials.
+
+Intended congruency probability:
+- approximately **25% congruent**
+- approximately **75% incongruent**
+
+In the code and analyses this corresponds to:
+
+- block label: `MI`
+- ratio in raw behavioral data: `25/75`
+
+### NP — Non-Predictive / Balanced
+This block is balanced between congruent and incongruent trials.
+
+Intended congruency probability:
+- approximately **50% congruent**
+- approximately **50% incongruent**
+
+In the code and analyses this corresponds to:
+
+- block label: `NP`
+- ratio in raw behavioral data: `50/50`
+
+---
+
+## Context ordering in the model
+
+In the model, context is represented by a 3-element probability vector:
+
+```matlab
+pc = [0.75 0.25 0.50];
