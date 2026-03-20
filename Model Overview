@@ -255,3 +255,29 @@ it is the motivation to deploy cognitive effort relative to the effort demanded 
 In principle, this means a single parameter related to effort may be sufficient to characterise performance on the Stroop task. 
 In summary, this parameter recovery exercise demonstrates that it is possible to use active inference to ‘phenotype’ (and infer the prior beliefs of) participants of a Stroop task. So, I am trying to test this hypothesis with a very 
 conceptually similar task and additionally with empirical data.
+
+
+## Current implementation notes
+
+The current working version differs from the original Stroop demo in a few practical ways:
+
+1. **Self-generated response outcomes were disabled**  
+   because they produced corrupted or unstable response-channel behavior in this Flanker implementation.
+
+2. **Motor noise is controlled explicitly by `eta`**  
+   rather than relying on Stroop-style response noise assumptions.
+
+3. **Congruent conditions may be relatively flat over some parameter grids**  
+   whereas incongruent conditions carry most of the informative variation for recovery and fitting.
+
+4. **RT proxy behavior is currently limited**  
+   RT-like summaries are derived from predictive entropy in the spirit of the Stroop model, but in the current Flanker implementation the RT proxy often has a relatively small dynamic range across parameter settings. In practice, this means:
+   - RT surfaces can be flatter than expected
+   - RT-based recovery is weaker than accuracy-based recovery
+   - RT summaries should currently be interpreted more cautiously than accuracy summaries
+
+   This does not mean the RT proxy is unusable, but it is not yet as informative or stable as the accuracy summaries in the present model configuration.
+
+5. **Trialwise inversion remains an open issue**  
+   and the current repository emphasizes summary-based simulation and recovery.
+
