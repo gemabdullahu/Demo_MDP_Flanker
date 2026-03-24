@@ -14,13 +14,13 @@ This repository contains a hierarchical Active Inference adaptation of `DEMO_MDP
 - Full trialwise inversion is still experimental
 
 ## Needs for review
-### Trialwise inversion:
+### Trialwise inversion
   - can be found in Full_inversion_FLK3
 ### RT proxy formulation
   - can be found in Recovery_FLKOnline_3
 ### Response channel inspection
   - can be found in FLK_Online_3
-### Lambda perceptual noise not behaving as it should:
+### Lambda perceptual noise not behaving as it should
   - can be found in FLK_Online_3
 
 ## Important
