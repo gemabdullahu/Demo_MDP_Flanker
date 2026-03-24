@@ -14,7 +14,5 @@ This repository contains a hierarchical Active Inference adaptation of `DEMO_MDP
 - Full trialwise inversion is still experimental
 
 ## Needs for review
-- Deep model structure
-- Response channel implementation
-- Trialwise inversion / replay-ready likelihood
+- Trialwise inversion 
 - RT proxy formulation
