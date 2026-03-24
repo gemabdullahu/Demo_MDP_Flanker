@@ -1,7 +1,7 @@
 # Flanker Active Inference Model
 
 This repository contains a hierarchical Active Inference adaptation of `DEMO_MDP_Stroop` to a block-based Flanker task.
-Link to Thomas Parr's paper where the stroop code is from: https://www.sciencedirect.com/science/article/pii/S0022249621000973?ref=pdf_download&fr=RR-2&rr=9e157dd24f7c690f 
+Link to Thomas Parr's paper where the stroop code is from: https://www.sciencedirect.com/science/article/pii/S0028393223000969?ref=pdf_download&fr=RR-2&rr=9e157dbd8f73690f
 
 ## Main file
 - `FLK_Online_3.m`
