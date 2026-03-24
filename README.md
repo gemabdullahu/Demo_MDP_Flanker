@@ -16,5 +16,8 @@ This repository contains a hierarchical Active Inference adaptation of `DEMO_MDP
 ## Needs for review
 - Trialwise inversion 
 - RT proxy formulation
+- Response channel inspection
+- Lambda perceptual noise not behaving as it should.
 
+## Important
 - Detailed descriptions of the code and issues with it are included in matlab files!
