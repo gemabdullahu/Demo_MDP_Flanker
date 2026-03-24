@@ -49,7 +49,7 @@ understand how behavioral summaries are constructed, why the RT
 proxy is currently weak, and why RT-based recovery remains limited.
 
 (c) Then inspect the full inversion pathway
-Finally, the full inversion code should be read together with `FLK_TEMPLATE`
+Finally, the full inversion code should be read together with `build_FLK_TEMPLATE`
 `MDP_Flanker_Gen` and `MDP_Flanker_L`. This is the right place to
 investigate the remaining choice-likelihood issue, namely why the
 full inversion still does not reliably favor the true generating
