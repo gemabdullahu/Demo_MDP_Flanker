@@ -16,3 +16,5 @@ This repository contains a hierarchical Active Inference adaptation of `DEMO_MDP
 ## Needs for review
 - Trialwise inversion 
 - RT proxy formulation
+
+- Detailed descriptions of the code and issues with it are included in matlab files!
